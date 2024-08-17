@@ -1,0 +1,25 @@
+---
+- name: Install Packages in the remote server
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Installing different packages on CentOS
+      yum:
+        name: "{{item}}"
+        state: present
+        update_cache: yes
+      when: ansible_distribution == "CentOS"
+      loop:
+       - git
+       - wget
+       - httpd
+       - curl
+       - chrony
+
+    - name: Start and enable chrony service on CentOS
+      service: 
+        name: chronyd
+        state: started
+        enabled: yes
+      when: ansible_distribution == "CentOS"

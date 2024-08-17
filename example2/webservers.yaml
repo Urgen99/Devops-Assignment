@@ -1,0 +1,23 @@
+---
+- name: Setup Webserver
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Install apache2
+      apt:
+        name: apache2
+        state: present
+
+    - name: Start apache2
+      service:
+        name: apache2
+        state: started
+        enabled: yes
+    - name: deploy web
+      file:
+        src: index.html
+        dest: /var/www/html/index.html
+        #:wq!
+        #`- name: restart apache2
+
+

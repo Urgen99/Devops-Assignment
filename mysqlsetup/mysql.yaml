@@ -1,0 +1,39 @@
+---
+- name: Install MySQL on remote server
+  hosts: webservers 
+  become: yes
+
+  tasks:
+    - name: Installing MySQL server
+      apt:
+        name: mysql-server
+        state: present
+
+    - name: Install python for MySQL server
+      apt:
+        name: python3-pymysql
+        state: present 
+        
+    - name: Start and enable MySQL service
+      service:
+        name: mysql
+        state: started
+        enabled: yes
+
+    - name: Create database with name "devopsdb"
+      mysql_db:
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+        name: devopsdb
+        state: present
+
+    - name: Add a user
+      mysql_user:
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+        name: devops
+        password: devop@123
+        priv: '*.*:ALL'
+        state: present
+
+
+
+

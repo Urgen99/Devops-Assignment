@@ -17,13 +17,13 @@ Solution:
 Code is as below:
 
 - name: Add group
-      group:
-        name: devops
-        state: present
+  group:
+    name: devops
+    state: present
 
-    - name: Add users
-      user:
-        name: "{{item}}"
-        state: present
-        groups: devops
-      loop: "{{username}}"
+- name: Add users
+  user:
+    name: "{{item}}"
+    state: present
+    groups: devops
+  loop: "{{username}}"

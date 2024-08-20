@@ -1,0 +1,23 @@
+---
+- name: Setup Webserver
+  hosts: centosservers 
+  become: yes
+  tasks:
+    - name: Install apache2
+      yum:
+        name: httpd
+        state: present
+
+    - name: Start apache2
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: deploy web
+      copy:
+        src: /home/vagrant/examples/webdeployment/devops-techaxis/index.html
+        dest: /var/www/html/index.html
+        
+
+

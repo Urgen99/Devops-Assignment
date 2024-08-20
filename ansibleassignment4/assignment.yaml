@@ -1,0 +1,28 @@
+---
+- name: Install NTP Package in the remote server
+  hosts: centosservers
+  become: yes
+
+  tasks:
+    - name: Installing NTP/chrony package
+      yum:
+        name: chrony
+        state: present
+        update_cache: yes
+
+    - name: Start and enable NTP/Chrony service on CentOS
+      service: 
+        name: chronyd
+        state: started
+        enabled: yes
+    
+    - name: Deploy NTP configuration
+      template:
+       src: ntp.conf.j2
+       dest: /etc/ntp.conf
+       
+    - name: Restart chrony/NTP services
+      service: 
+        name: chronyd
+        state: restarted 
+

@@ -1,29 +1,11 @@
-this Assignment 2 is for the following:
-
-Write ansible playbook to add following users in remote system, use ansible loop,
-provide the list in the group_vars list, the user should be the member of devops group.
-A. student1
-B. student2
-C. student3
-D. student4
+ Add the ssh banner in the remote hosts with the following contents, the sshd service
+should restart only if there is change in the sshd_config. Hintz use ansible handlers
+This {{ansible_distribution}} is managed by Ansible
 
 
-Solution:
-1)  Here, I have created group in assignment.yaml file where group name with 'devops' is created with the state present.
 
 
-2)  In another step, user is added with the loop where name is given with the ginger templating '{{item}}' where username is provided through the loop by creating a directory called group_vars where all.yaml file is created. Username is provided from this file to the assignment.yaml file.
 
-Code is as below:
+In this assigment as we can see in the assignment.yaml file, banner file is added to the destinatin: /etc/motd directory with the message :  "This {{ansible_distribution}} is managed by Ansible \n"
 
-- name: Add group
-  group:
-    name: devops
-    state: present
-
-- name: Add users
-  user:
-    name: "{{item}}"
-    state: present
-    groups: devops
-  loop: "{{username}}"
+after that sshd config file is updated. Also handlers is used to restart the ntp service on CentOS.

@@ -1,29 +1,12 @@
-this Assignment 2 is for the following:
-
-Write ansible playbook to add following users in remote system, use ansible loop,
-provide the list in the group_vars list, the user should be the member of devops group.
-A. student1
-B. student2
-C. student3
-D. student4
+Using ansible templates, update the ntp server details with following in remote hosts.
+server 0.asia.pool.ntp.org
+server 1.asia.pool.ntp.org
+server 2.asia.pool.ntp.org
+server 3.asia.pool.ntp.org
 
 
-Solution:
-1)  Here, I have created group in assignment.yaml file where group name with 'devops' is created with the state present.
+
+In this assignment first of all NTP package is installed in the remote server 'CentOS' with the name 'Chrony'. it is started and enabled. Soon after NTP configuration are deployed from the templates directory where 'ntp.conf.j2' is present as a configuration file. and soon after the chronyd service is restarted.
 
 
-2)  In another step, user is added with the loop where name is given with the ginger templating '{{item}}' where username is provided through the loop by creating a directory called group_vars where all.yaml file is created. Username is provided from this file to the assignment.yaml file.
-
-Code is as below:
-
-- name: Add group
-  group:
-    name: devops
-    state: present
-
-- name: Add users
-  user:
-    name: "{{item}}"
-    state: present
-    groups: devops
-  loop: "{{username}}"
+'ntp.conf.j2' file contain the configuration for ntpd .

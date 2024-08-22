@@ -1,0 +1,31 @@
+---
+
+# tasks file for rolespractice
+
+- name: Installing  Chrony package
+  yum:
+    name: chrony
+    state: present
+    update_cache: yes
+
+- name: Start and enable NTP service on CentOS
+  service:
+    name: chronyd
+    state: started
+    enabled: yes
+
+- name: Add banner file
+  copy:
+    content: "This {{ansible_distribution}} is managed by Ansible \n"
+    dest: /etc/motd
+
+- name: "Update sshd config file"
+  become: yes
+  become_user: root
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "#Banner none"
+    line: "Banner /etc/motd"
+    state: present
+  notify:
+    - Restart sshd service

@@ -1,0 +1,14 @@
+---
+# handlers file for rolespractice
+- name: Restart ntp service on CentOS
+  service:
+    name: chronyd
+    state: restarted
+    enabled: yes
+
+- name: Restart sshd service
+  service:
+    name: sshd
+    state: restarted
+    enabled: yes
+

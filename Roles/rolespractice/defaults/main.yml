@@ -1,0 +1,8 @@
+---
+# defaults file for rolespractice
+
+username:
+- student1
+- student2
+- student3
+- student4

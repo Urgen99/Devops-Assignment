@@ -1,0 +1,7 @@
+---
+- name: Install NTP Package in the CentOS server
+  hosts: centosservers
+  become: yes
+  roles: 
+    - rolespractice
+
